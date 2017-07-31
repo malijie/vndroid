@@ -6,7 +6,8 @@ import android.net.NetworkInfo;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.vic.base.profile.Profile;
+
+import com.base.lib.profile.Profile;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

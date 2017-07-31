@@ -2,7 +2,7 @@ package com.base.lib.utils;
 
 import android.widget.Toast;
 
-import com.vic.base.profile.Profile;
+import com.base.lib.profile.Profile;
 
 
 /**

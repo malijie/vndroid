@@ -1,8 +1,15 @@
 package com.base.lib.api;
 
 import com.base.lib.entity.ApiResponse;
+import com.base.lib.entity.WelfareInfo;
+import com.base.lib.http.HttpEngine;
+import com.google.gson.reflect.TypeToken;
 
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by malijie on 2017/7/31.
@@ -11,7 +18,15 @@ import java.util.List;
 public class ApiImpl implements Api{
 
     @Override
-    public List<ApiResponse> getWelfareInfo() {
-        return null;
+    public ApiResponse<List<WelfareInfo>> getWelfareInfo(String groupId,String itemId) {
+        Map<String,String> paramsMap = new HashMap<>();
+        paramsMap.put("groupId",groupId);
+        paramsMap.put("itemId",itemId);
+        Type type = new TypeToken<ApiResponse<List<WelfareInfo>>>(){}.getType();
+        try {
+            return HttpEngine.getInstance().postHandle(paramsMap,type);
+        } catch (IOException e) {
+            return new ApiResponse(false, "参数错误");
+        }
     }
 }

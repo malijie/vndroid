@@ -5,6 +5,6 @@ package com.base.lib.app;
  */
 
 public interface ActionCallback<T> {
-    T onSuccess(String errorCode);
+    void onSuccess(T data);
     void onFailed(String errorMsg);
 }

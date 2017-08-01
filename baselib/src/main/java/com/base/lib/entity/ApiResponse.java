@@ -6,22 +6,35 @@ package com.base.lib.entity;
 
 public class ApiResponse<T> {
 
-    private String errorCode;
-    private T errorData;
-
-    public String getErrorCode() {
-        return errorCode;
+    public ApiResponse(boolean isError,T result){
+        this.error = isError;
+        this.results = result;
     }
 
-    public void setErrorCode(String errorCode) {
-        this.errorCode = errorCode;
+    private boolean error;
+    private T results;
+
+    public boolean isError() {
+        return error;
     }
 
-    public T getErrorData() {
-        return errorData;
+    public void setError(boolean error) {
+        this.error = error;
     }
 
-    public void setErrorData(T errorData) {
-        this.errorData = errorData;
+    public T getResults() {
+        return results;
+    }
+
+    public void setResults(T results) {
+        this.results = results;
+    }
+
+    @Override
+    public String toString() {
+        return "ApiResponse{" +
+                "error=" + error +
+                ", results=" + results +
+                '}';
     }
 }

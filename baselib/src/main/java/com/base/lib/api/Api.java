@@ -1,6 +1,7 @@
 package com.base.lib.api;
 
 import com.base.lib.entity.ApiResponse;
+import com.base.lib.entity.WelfareInfo;
 
 import java.util.List;
 
@@ -9,5 +10,5 @@ import java.util.List;
  */
 
 public interface Api {
-    List<ApiResponse> getWelfareInfo();
+    ApiResponse<List<WelfareInfo>> getWelfareInfo(String groupId,String itemId);
 }

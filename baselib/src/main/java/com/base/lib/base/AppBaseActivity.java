@@ -1,7 +1,8 @@
 package com.base.lib.base;
 
+import android.app.ProgressDialog;
+
 import com.base.lib.app.ActionCallback;
-import com.base.lib.utils.Logger;
 import com.base.lib.utils.ToastManager;
 
 /**
@@ -10,10 +11,12 @@ import com.base.lib.utils.ToastManager;
 
 public abstract class AppBaseActivity extends BaseActivity {
     private static final String TAG = AppBaseActivity.class.getSimpleName();
+    public ProgressDialog mProgressDialog = null;
 
     public abstract class RequestCallback<T> implements ActionCallback<T>{
         @Override
         public void onFailed(String errorMsg) {
+            mProgressDialog.dismiss();
             ToastManager.showNoNetwork();
         }
 

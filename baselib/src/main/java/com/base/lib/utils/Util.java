@@ -1,5 +1,7 @@
 package com.base.lib.utils;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -44,6 +46,12 @@ public class Util {
         return  new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date());
     }
 
+    public static ProgressDialog createProgressDialog(Activity activity, String msg){
+        final ProgressDialog dialog = new ProgressDialog(activity);
+        dialog.setMessage(msg);
+        dialog.setCanceledOnTouchOutside(false);
+        return dialog;
+    }
 
 //    public static int getColor(int resColor){
 //        return Profile.sContext.getResources().getColor(resColor);

@@ -1,4 +1,4 @@
-package com.test.demo;
+package com.base.lib.base;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -8,12 +8,12 @@ import com.base.lib.app.ActionImpl;
 import com.base.lib.app.AppAction;
 
 /**
- * Created by malijie on 2017/7/31.
+ * Created by malijie on 2017/8/2.
  */
 
 public class BaseActivity extends Activity{
-    public AppAction action = null;
 
+    public AppAction action = null;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

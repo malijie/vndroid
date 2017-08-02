@@ -22,4 +22,15 @@ public class ToastUtil {
             sToast.show();
         }
     }
+
+    public static void showMsg(String msg){
+        if(sToast != null){
+            sToast.setText(msg);
+            sToast.show();
+        }else{
+            sToast = Toast.makeText(Profile.sContext,msg,Toast.LENGTH_SHORT);
+            sToast.show();
+        }
+    }
+
 }

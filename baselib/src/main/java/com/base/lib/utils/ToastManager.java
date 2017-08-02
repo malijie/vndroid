@@ -16,4 +16,7 @@ public class ToastManager {
         ToastUtil.showMsg(msg, Toast.LENGTH_SHORT);
     }
 
+    public static void showNoNetwork(){
+        ToastUtil.showMsg("当前无网络...");
+    }
 }

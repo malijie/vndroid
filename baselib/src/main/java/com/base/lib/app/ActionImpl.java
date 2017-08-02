@@ -9,6 +9,7 @@ import com.base.lib.entity.ApiResponse;
 import com.base.lib.entity.WelfareInfo;
 import com.base.lib.utils.Logger;
 import com.base.lib.utils.ToastManager;
+import com.base.lib.utils.Util;
 
 import java.util.List;
 
@@ -27,6 +28,11 @@ public class ActionImpl implements AppAction{
     public void listWelfareInfo(final String groupId, final String itemId, final ActionCallback<List<WelfareInfo>> callback) {
         if(TextUtils.isEmpty(groupId) || TextUtils.isEmpty(itemId)){
             ToastManager.showShortMsg("参数错误");
+            return;
+        }
+
+        if(!Util.hasInternet()){
+            callback.onFailed("当前无网络");
             return;
         }
 

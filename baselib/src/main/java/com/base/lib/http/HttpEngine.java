@@ -10,16 +10,19 @@ import java.io.OutputStream;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by malijie on 2017/8/1.
  */
 
 public class HttpEngine {
-        private final static String SERVER_URL = "http://gank.io/api/data/%E7%A6%8F%E5%88%A9/";
-//private final static String SERVER_URL = "http://gank.io/api/data/Android/10/1";
     private final static String TAG = "HttpEngine";
+
+    private final static String SERVER_URL = "http://gank.io/api/data/%E7%A6%8F%E5%88%A9/";
     private final static String REQUEST_METHOD_POST = "POST";
     private final static String REQUEST_METHOD_GET = "GET";
     private final static String ENCODE_TYPE = "UTF-8";
@@ -38,8 +41,8 @@ public class HttpEngine {
     }
 
 
-    public <T> T postHandle(Map<String,String> paramsMap, Type typeOfT)  throws IOException {
-        HttpURLConnection connection = getConnection(paramsMap);
+    public <T> T postHandle(RequestParams params, Type typeOfT)  throws IOException {
+        HttpURLConnection connection = getConnection(params);
         int code = connection.getResponseCode();
         if (code == 200) {
             // 获取响应的输入流对象
@@ -72,9 +75,10 @@ public class HttpEngine {
     }
 
     // 获取connection
-    private HttpURLConnection getConnection(Map<String,String> paramsMap) {
+    private HttpURLConnection getConnection(RequestParams params) {
         HttpURLConnection connection = null;
-        String finalURL = SERVER_URL + paramsMap.get("groupId") + "/" + paramsMap.get("itemId");
+        String finalURL = SERVER_URL + params.getParamsValue("groupId") + "/" + params.getParamsValue("itemId");
+//        String finalURL = SERVER_URL + joinParams(params);
         try {
             URL url = new URL(finalURL);
             connection = (HttpURLConnection) url.openConnection();
@@ -90,7 +94,17 @@ public class HttpEngine {
             e.printStackTrace();
         }
         return connection;
+    }
 
+    private String joinParams(RequestParams requestParams){
+        Map<String,String> paramsMap = requestParams.getParamsMap();
+        String params = "?";
+        List<String> keyList = new ArrayList<>(paramsMap.keySet());
+        for(int i=0;i<keyList.size();i++){
+            String key = keyList.get(i);
+            params +=  key+ "=" +paramsMap.get(key) + "&";
+        }
+        return params.substring(0,params.length()-1);
     }
 
 }

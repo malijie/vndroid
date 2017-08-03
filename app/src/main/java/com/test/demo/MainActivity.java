@@ -1,14 +1,13 @@
 package com.test.demo;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
 
-import com.base.lib.app.ActionCallback;
 import com.base.lib.base.AppBaseActivity;
 import com.base.lib.entity.WelfareInfo;
+import com.base.lib.http.RequestParams;
 import com.base.lib.utils.Logger;
 import com.base.lib.utils.Util;
 
@@ -32,7 +31,12 @@ public class MainActivity extends AppBaseActivity {
         public void onClick(View v) {
             mProgressDialog = Util.createProgressDialog(MainActivity.this,getResources().getString(R.string.loading_progress_tip));
             mProgressDialog.show();
-            action.listWelfareInfo("10", "1", new AppBaseActivity.RequestCallback<List<WelfareInfo>>() {
+
+            RequestParams params = new RequestParams();
+            params.setParamsValue("groupId","10");
+            params.setParamsValue("itemId","1");
+
+            action.listWelfareInfo(params, new AppBaseActivity.RequestCallback<List<WelfareInfo>>() {
 
                 @Override
                 public void onSuccess(List<WelfareInfo> data) {

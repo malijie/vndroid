@@ -3,6 +3,7 @@ package com.base.lib.api;
 import com.base.lib.entity.ApiResponse;
 import com.base.lib.entity.WelfareInfo;
 import com.base.lib.http.HttpEngine;
+import com.base.lib.http.RequestParams;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
@@ -18,13 +19,13 @@ import java.util.Map;
 public class ApiImpl implements Api{
 
     @Override
-    public ApiResponse<List<WelfareInfo>> getWelfareInfo(String groupId,String itemId) {
-        Map<String,String> paramsMap = new HashMap<>();
-        paramsMap.put("groupId",groupId);
-        paramsMap.put("itemId",itemId);
+    public ApiResponse<List<WelfareInfo>> getWelfareInfo(RequestParams params) {
+//        Map<String,String> paramsMap = new HashMap<>();
+//        paramsMap.put("groupId",groupId);
+//        paramsMap.put("itemId",itemId);
         Type type = new TypeToken<ApiResponse<List<WelfareInfo>>>(){}.getType();
         try {
-            return HttpEngine.getInstance().postHandle(paramsMap,type);
+            return HttpEngine.getInstance().postHandle(params,type);
         } catch (IOException e) {
             return new ApiResponse(false, "参数错误");
         }

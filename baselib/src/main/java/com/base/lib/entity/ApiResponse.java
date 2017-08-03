@@ -14,7 +14,7 @@ public class ApiResponse<T> {
     private boolean error;
     private T results;
 
-    public boolean isError() {
+    public boolean hasError() {
         return error;
     }
 

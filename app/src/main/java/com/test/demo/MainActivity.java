@@ -1,12 +1,15 @@
 package com.test.demo;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
 
 import com.base.lib.base.AppBaseActivity;
 import com.base.lib.entity.WelfareInfo;
+import com.base.lib.http.DefaultThreadPool;
 import com.base.lib.http.RequestParams;
 import com.base.lib.utils.Logger;
 import com.base.lib.utils.Util;
@@ -14,6 +17,7 @@ import com.base.lib.utils.Util;
 import java.util.List;
 
 public class MainActivity extends AppBaseActivity {
+    private static final String TAG = MainActivity.class.getSimpleName();
     private Button mButton = null;
     private GridView mGridView = null;
     @Override
@@ -41,10 +45,17 @@ public class MainActivity extends AppBaseActivity {
                 @Override
                 public void onSuccess(List<WelfareInfo> data) {
                     mProgressDialog.dismiss();
-                    Logger.mlj("data==" + data);
+                    Logger.d(TAG,"data==" + data);
                 }
 
             });
+
         }
     };
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mThreadPool.shutDown();
+    }
 }

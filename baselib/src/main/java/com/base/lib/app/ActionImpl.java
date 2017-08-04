@@ -8,10 +8,14 @@ import com.base.lib.api.Api;
 import com.base.lib.api.ApiImpl;
 import com.base.lib.entity.ApiResponse;
 import com.base.lib.entity.WelfareInfo;
+import com.base.lib.http.DefaultThreadPool;
+import com.base.lib.http.HttpAsyncTask;
 import com.base.lib.http.RequestParams;
+import com.base.lib.utils.Logger;
 import com.base.lib.utils.ToastManager;
 import com.base.lib.utils.Util;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -37,22 +41,27 @@ public class ActionImpl implements AppAction{
             return;
         }
 
-        new AsyncTask<Void, Void, ApiResponse<List<WelfareInfo>>>() {
-
+        DefaultThreadPool.getInstance().execute(new Runnable() {
             @Override
-            protected ApiResponse<List<WelfareInfo>> doInBackground(Void... params) {
-                return api.getWelfareInfo(requestParams);
+            public void run() {
+                new AsyncTask<Void, Void, ApiResponse<List<WelfareInfo>>>() {
+                    @Override
+                    protected ApiResponse<List<WelfareInfo>> doInBackground(Void... params) {
+                        Logger.mlj("begin Time:" + new Date().getTime());
+                        return api.getWelfareInfo(requestParams);
+                    }
+                    @Override
+                    protected void onPostExecute(ApiResponse<List<WelfareInfo>> listApiResponse) {
+                        if (!listApiResponse.hasError()) {
+                            Logger.mlj("end Time:" + new Date().getTime());
+                            callback.onSuccess(listApiResponse.getResults());
+                        } else {
+                            callback.onFailed("数据返回失败");
+                        }
+                    }
+                }.execute();
             }
-
-            @Override
-            protected void onPostExecute(ApiResponse<List<WelfareInfo>> listApiResponse) {
-                if (!listApiResponse.hasError()) {
-                    callback.onSuccess(listApiResponse.getResults());
-                } else {
-                    callback.onFailed("数据返回失败");
-                }
-            }
-        }.execute();
+        });
 
     }
 }

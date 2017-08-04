@@ -20,9 +20,6 @@ public class ApiImpl implements Api{
 
     @Override
     public ApiResponse<List<WelfareInfo>> getWelfareInfo(RequestParams params) {
-//        Map<String,String> paramsMap = new HashMap<>();
-//        paramsMap.put("groupId",groupId);
-//        paramsMap.put("itemId",itemId);
         Type type = new TypeToken<ApiResponse<List<WelfareInfo>>>(){}.getType();
         try {
             return HttpEngine.getInstance().postHandle(params,type);

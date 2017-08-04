@@ -65,7 +65,7 @@ public class HttpEngine {
             // 返回字符串
             final String result = new String(baos.toByteArray());
             // 打印出结果
-            Logger.mlj("response: " + result);
+            Logger.d(TAG,"response: " + result);
             Gson gson = new Gson();
             return gson.fromJson(result, typeOfT);
         } else {

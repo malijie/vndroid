@@ -32,24 +32,53 @@ public class DefaultThreadPool {
         return DefaultThreadPool.instance;
     }
 
-    public void removeAllTask(){
+    public  void removeAllTask(){
         blockingQueue.clear();
     }
 
-    public void removeTask(Object object){
+    public  void removeTask(Object object){
         blockingQueue.remove(object);
     }
 
-    public void shutDown(){
+    public  void shutDown(){
         if(pool != null){
             pool.shutdown();
         }
     }
 
+    public void waitTermination(){
+        try {
+            pool.awaitTermination(1,TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
-    public void execute(Runnable r){
+    public  void execute(Runnable r){
         if(r != null){
             pool.execute(r);
+        }
+    }
+
+    public  void submit(Runnable r){
+        if(r != null){
+            pool.submit(r);
+        }
+    }
+
+    /**
+     * 关闭，立即关闭，并挂起所有正在执行的线程，不接受新任务
+     */
+    public  void shutdownRightNow() {
+        if (DefaultThreadPool.pool != null) {
+            DefaultThreadPool.pool.shutdownNow();
+            try {
+                // 设置超时极短，强制关闭所有任务
+                DefaultThreadPool.pool.awaitTermination(0,
+                        TimeUnit.MICROSECONDS);
+            } catch (final InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 

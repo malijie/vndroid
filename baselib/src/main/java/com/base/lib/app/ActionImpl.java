@@ -24,9 +24,11 @@ import java.util.List;
 
 public class ActionImpl implements AppAction{
     private Api api = null;
+    private DefaultThreadPool mThreadPool = null;
 
     public ActionImpl(){
         api = new ApiImpl();
+        mThreadPool = DefaultThreadPool.getInstance();
     }
 
     @Override
@@ -41,7 +43,7 @@ public class ActionImpl implements AppAction{
             return;
         }
 
-        DefaultThreadPool.getInstance().execute(new Runnable() {
+        mThreadPool.submit(new Runnable() {
             @Override
             public void run() {
                 new AsyncTask<Void, Void, ApiResponse<List<WelfareInfo>>>() {

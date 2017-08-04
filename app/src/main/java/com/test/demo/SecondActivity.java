@@ -15,7 +15,7 @@ public class SecondActivity extends AppBaseActivity{
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.second_layout);
 
         Logger.mlj("SecondActivity onCreate");
 
@@ -35,14 +35,12 @@ public class SecondActivity extends AppBaseActivity{
         });
 
 
-
         defaultThreadPool.execute(new Runnable() {
             @Override
             public void run() {
                 Logger.mlj("=======task 3===========");
             }
         });
-        defaultThreadPool.shutDown();
 
         defaultThreadPool.execute(new Runnable() {
             @Override
